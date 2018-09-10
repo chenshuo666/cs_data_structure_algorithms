@@ -15,25 +15,25 @@ class Node:
 class SinglyLinkedList:
     def __init__(self):
         """
-        SinglyLinkedList 的初始化
+        Initialize SinglyLinkedList 
         """
         self.length = 0
-        self._head = None
+        self.head = None
 
     def is_empty(self):
         """
-        判断该链表是否为空
+        Determine if the list is empty
         """
-        if self._head == None:
+        if self.head == None:
             return True
         else:
             return False
 
     def get_length(self):
         """
-        获取链表长度
+        Get the length of the linked list
         """
-        cur = self._head
+        cur = self.head
         if cur:
             i = 1
             while cur.next:
@@ -44,8 +44,9 @@ class SinglyLinkedList:
             return 0
 
     def get_data_by_index(self, index):
+        '''Determine whether data exists by index'''
         j = 0
-        p = self._head
+        p = self.head
         if self.is_empty():
             print('Linklist is empty.')
             return
@@ -59,8 +60,8 @@ class SinglyLinkedList:
                 print('Target is not exist!')
 
     def get_data_by_self(self, data):
-        """查找元素是否存在"""
-        cur = self._head
+        '''Determine whether data exists by data'''
+        cur = self.head
         j = 0
         if self.is_empty():
             print('Linklist is empty.')
@@ -75,30 +76,28 @@ class SinglyLinkedList:
             return False
 
     def travel_print(self):
-        """
-        遍历整个链表，并输出链表的值
-        """
+        """ traverses the entire list and outputs the value of the linked list """
         if self.is_empty():
             print("Linked list's length is 0")
         else:
-            node = self._head
-            print("_head -->", node.data, end=' ')
+            node = self.head
+            print("head -->", node.data, end=' ')
             while node.next:
                 node = node.next
                 print("-->", node.data, end=' ')
             print(" ")
 
     def insert_append(self, this_node):
-
+        '''Insert data at the end of the list'''
         if isinstance(this_node, Node):
             pass
         else:
             this_node = Node(data=this_node)
         if self.is_empty():
-            # 链表为空的情况将头指针指向当前node
-            self._head = this_node
+            # When the linked list is empty, point the head pointer to the current node
+            self.head = this_node
         else:
-            node = self._head
+            node = self.head
             while node.next:
                 node = node.next
             node.next = this_node
@@ -106,31 +105,32 @@ class SinglyLinkedList:
 
     def insert(self, value, index):
         """
-        链表的插入操作
-        :param value: 要插入的值
-        :param index: 位置
+        List insert operation
+        :param value: The value to be inserted
+        :param index: The position to be inserted
         :return: None
         """
         if type(index) is int:
             if index > self.length:
-                # 索引值超出范围直接提示并且退出
+                # The index value is out of range and prompts and exits
                 print("Index value is out of range.")
                 return
             else:
-                # 获得当前node对象和_head
+                # Get the current node object and head
                 this_node = Node(data=value)
-                cur = self._head
+                cur = self.head
 
                 if index == 0:
-                    # 索引值为0是将
-                    self._head = this_node
+                    # The index value is 0, insert the head of the linked list
+                    self.head = this_node
                     this_node.next = cur
                     return
 
                 while index - 1:
                     cur = cur.next
                     index -= 1
-                # 将当前节点与后一个节点拆开，this_node指向后一个节点，前一个节点指向this_node
+                # Disassemble the current node from the next node, this_node points to the next node,
+                # and the previous node points to this_node
                 this_node.next = cur.next
                 cur.next = this_node
                 self.length += 1
@@ -143,20 +143,20 @@ class SinglyLinkedList:
 
     def delete_node(self, index):
         """
-        删除链表中某个位置的节点
-        :param index: 位置索引
+        Delete a node in a location in the linked list
+        :param index: Location index
         :return: None
         """
         if type(index) is int:
             if index > self.length:
-                # 索引值超出范围直接提示并且退出
+                # The index value is out of range and prompts and exits
                 print("Index  is out of range.")
                 return
             else:
                 if index == 0:
-                    self._head = self._head.next
+                    self.head = self.head.next
                 else:
-                    cur = self._head
+                    cur = self.head
                     while index - 1:
                         cur = cur.next
                         index -= 1
@@ -168,20 +168,20 @@ class SinglyLinkedList:
             return
 
     def update(self, value, index):
-        """为链表中某个位置的节点修改值"""
+        """modifies the value for a node in a location in the list"""
 
         if type(index) is int:
             if index > self.length:
-                # 索引值超出范围直接提示并且退出
+                # The index value is out of range and prompts and exits
                 print("Index  is out of range.")
                 return
             else:
                 this_node = Node(data=value)
                 if index == 0:
-                    this_node.next = self._head.next
-                    self._head = this_node
+                    this_node.next = self.head.next
+                    self.head = this_node
                 else:
-                    cur = self._head
+                    cur = self.head
                     while index - 1:
                         cur = cur.next
                         index -= 1
@@ -194,20 +194,20 @@ class SinglyLinkedList:
 
     def get_value(self, index):
         """
-        获取链表中某个位置节点的值
-        :param index: 位置索引
-        :return: 该节点值, int or not
+        Get the value of a node in the linked list
+        :param index: location index
+        :return: the node value, int or not
         """
         if type(index) is int:
             if index > self.length:
-                # 索引值超出范围直接提示并且退出
+                # The index value is out of range and prompts and exits
                 print("Index  is out of range.")
                 return
             else:
                 if index == 0:
-                    return self._head.data
+                    return self.head.data
                 else:
-                    cur = self._head
+                    cur = self.head
                     while index - 1:
                         cur = cur.next
                         index -= 1
@@ -217,7 +217,7 @@ class SinglyLinkedList:
             return
 
     def clear_singly_linkedlist(self):
-        """清空链表"""
-        self._head = None
+        """Empty list"""
+        self.head = None
         self.length = 0
         print("Clear the linked list finished.")
