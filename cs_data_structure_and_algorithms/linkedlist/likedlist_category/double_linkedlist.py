@@ -5,7 +5,7 @@
 """Initialize the node, the node includes the currently stored content and a pointer to the next node"""
 
 class Node(object):
-    """双向链表节点"""
+    """Doubly linked list node"""
     def __init__(self, data):
         self.data = data
         self.next = None
@@ -16,25 +16,25 @@ class Node(object):
 
 
 class DoubleLinkList(object):
-    """双向链表"""
+    """Doubly linked list"""
     def __init__(self):
         self.length=0
-        self._head = None
+        self.head = None
 
     def is_empty(self):
         """
-        判断该链表是否为空
+        Determine if the list is empty
         """
-        if self._head == None:
+        if self.head == None:
             return True
         else:
             return False
 
     def get_length(self):
         """
-        获取链表长度
+        Get the length of the linked list
         """
-        current_node = self._head
+        current_node = self.head
         if current_node:
             i = 1
             while current_node.next:
@@ -45,8 +45,9 @@ class DoubleLinkList(object):
             return 0
 
     def get_data_by_index(self,index):
+        '''Determine whether data exists by index'''
         j = 0
-        p = self._head
+        p = self.head
         if self.is_empty():
             print('Linklist is empty.')
             return
@@ -62,8 +63,8 @@ class DoubleLinkList(object):
                 print('Target is not exist!')
 
     def get_data_by_self(self, data):
-        """查找元素是否存在"""
-        cur = self._head
+        '''Determine whether data exists by data'''
+        cur = self.head
         j=0
         if self.is_empty():
             print('Linklist is empty.')
@@ -79,11 +80,11 @@ class DoubleLinkList(object):
             return False
 
     def travel_print(self):
-        """遍历链表"""
+        """Traversing the linked list"""
         if self.is_empty():
             print("Linked list's length is 0")
         else:
-            node = self._head
+            node = self.head
             print("head -->", node.data, end=' ')
             while node.next:
                 node = node.next
@@ -91,36 +92,41 @@ class DoubleLinkList(object):
             print(" ")
 
     def insert_head(self, data):
-        """头部插入元素"""
+        """Insert data at the head of the list"""
         node = Node(data)
         if self.is_empty():
-            self._head = node
+            self.head = node
         else:
-            node.next = self._head
-            self._head.prev = node
-            self._head = node
+            node.next = self.head
+            self.head.prev = node
+            self.head = node
 
     def insert_append(self, data):
-        """尾部插入元素"""
+        """Insert data at the end of the list"""
         node = Node(data)
         if self.is_empty():
-            self._head = node
+            self.head = node
         else:
-            cur = self._head
+            cur = self.head
             while cur.next != None:
                 cur = cur.next
             cur.next = node
             node.prev = cur
 
     def insert(self, pos, data):
-        """在指定位置添加节点"""
+        """
+        List insert operation
+        :param value: The value to be inserted
+        :param index: The position to be inserted
+        :return: None
+        """
         if pos <= 0:
             self.insert_head(data)
         elif pos > (self.get_length() - 1):
             self.insert_append(data)
         else:
             node = Node(data)
-            cur = self._head
+            cur = self.head
             count = 0
             while count < (pos - 1):
                 count += 1
@@ -131,58 +137,56 @@ class DoubleLinkList(object):
             cur.next = node
 
     def delete_by_data(self, data):
-        """删除元素"""
+        """delete node by data"""
         if self.is_empty():
             return
         else:
-            cur = self._head
+            cur = self.head
             if cur.data == data:
-                # 如果首节点的元素即是要删除的元素
+                # If the element of the first node is the element to be deleted
                 if cur.next == None:
-                    self._head = None
+                    self.head = None
                 else:
                     cur.next.prev = None
-                    self._head = cur.next
+                    self.head = cur.next
                 return
             while cur != None:
                 if cur.data == data:
-                    # 将cur的前一个节点的next指向cur的后一个节点
+                    # Point the next node of cur to the next node of cur
                     cur.prev.next = cur.next
-                    # 将cur的后一个节点的prev指向cur的前一个节点
+                    # Point the prev of the next node of cur to the previous node of cur
                     cur.next.prev = cur.prev
                     break
                 cur = cur.next
 
     def delete_by_index(self, index):
-        """删除链表中某个位置的节点"""
-
-        cur = self._head
-
+        """delete node by index"""
+        cur = self.head
         length=self.get_length()
         if type(index) is int:
             if self.is_empty():
                 return
             else:
                 if index > length:
-                    # 索引值超出范围直接提示并且退出
+                    # The index value is out of range and prompts and exits
                     print("Index  is out of range.")
                     return
                 else:
                     if index == 0:
                         if cur.next == None:
-                            self._head = None
+                            self.head = None
                         else:
                             cur.next.prev = None
-                            self._head = cur.next
+                            self.head = cur.next
                         return
                     else:
                         while (index) > 0:
                             cur = cur.next
                             index -= 1
 
-                        # 将cur的前一个节点的next指向cur的后一个节点
+                        # Point the next node of cur to the next node of cur
                         cur.prev.next = cur.next
-                        # 将cur的后一个节点的prev指向cur的前一个节点
+                        # Point the prev of the next node of cur to the previous node of cur
                         cur.next.prev = cur.prev
                         length -= 1
                         return
@@ -191,22 +195,22 @@ class DoubleLinkList(object):
             return
 
     def update(self, value, index):
-        """为链表中某个位置的节点修改值"""
+        """modifies the value for a node in a location in the list"""
 
         length = self.get_length()
         if type(index) is int:
             if index > length:
-                # 索引值超出范围直接提示并且退出
+                # The index value is out of range and prompts and exits
                 print("Index  is out of range.")
                 return
             else:
                 this_node = Node(data=value)
                 if index == 0:
-                    this_node.next = self._head.next
+                    this_node.next = self.head.next
                     this_node.prev =None
-                    self._head = this_node
+                    self.head = this_node
                 else:
-                    cur = self._head
+                    cur = self.head
                     while index - 1:
                         cur = cur.next
                         index -= 1
@@ -219,7 +223,7 @@ class DoubleLinkList(object):
             return
 
     def clear_double_linkedlist(self):
-        """清空链表"""
-        self._head = None
+        """empty linked list"""
+        self.head = None
         self.length = 0
         print("Clear the linked list finished.")
