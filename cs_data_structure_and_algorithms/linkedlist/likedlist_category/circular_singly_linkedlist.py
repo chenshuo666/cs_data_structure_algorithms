@@ -24,9 +24,7 @@ class CircularSinglyLinkList(object):
         self.head = None
 
     def is_empty(self):
-        """
-        Determine if the list is empty
-        """
+        """Determine if the list is empty"""
         if self.head == None:
             return True
         else:
