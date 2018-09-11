@@ -6,7 +6,7 @@
 
 
 class Node(object):
-    """双向链表节点"""
+    """One-way circular list node"""
 
     def __init__(self, data):
         self.data = data
@@ -17,29 +17,27 @@ class Node(object):
 
 
 class CircularSinglyLinkList(object):
-    """双向链表"""
+    """One-way circular list"""
 
     def __init__(self):
         self.length = 0
-        self._head = None
+        self.head = None
 
     def is_empty(self):
         """
-        判断该链表是否为空
+        Determine if the list is empty
         """
-        if self._head == None:
+        if self.head == None:
             return True
         else:
             return False
 
     def get_length(self):
-        """
-        获取链表长度
-        """
-        current_node = self._head
+        """Get the length of the linked list"""
+        current_node = self.head
         if current_node:
             i = 1
-            while current_node.next != self._head:
+            while current_node.next != self.head:
                 current_node = current_node.next
                 i += 1
             return i
@@ -47,8 +45,9 @@ class CircularSinglyLinkList(object):
             return 0
 
     def get_data_by_index(self, index):
+        '''Determine whether data exists by index'''
         j = 0
-        p = self._head
+        p = self.head
         if self.is_empty():
             print('Linklist is empty.')
             return
@@ -63,14 +62,14 @@ class CircularSinglyLinkList(object):
                 print('Target is not exist!')
 
     def get_data_by_self(self, data):
-        """查找元素是否存在"""
-        cur = self._head
+        '''Determine whether data exists by data'''
+        cur = self.head
         j = 0
         if self.is_empty():
             print('Linklist is empty.')
             return
         else:
-            while cur.next!= self._head:
+            while cur.next!= self.head:
                 if cur.data == data:
                     print("the index of the %d is %d" % (data, j))
                     return True
@@ -79,58 +78,63 @@ class CircularSinglyLinkList(object):
             return False
 
     def travel_print(self):
-        """遍历链表"""
+        """Traversing the linked list"""
         if self.is_empty():
             print("Linked list's length is 0")
         else:
-            node = self._head
+            node = self.head
             print("head -->", node.data, end=' ')
-            while node.next !=self._head:
+            while node.next !=self.head:
                 node = node.next
                 print("-->", node.data, end=' ')
             print(" ")
 
     def insert_head(self, data):
-        """头部插入元素"""
+        """Insert data at the head of the list"""
         node = Node(data)
         if self.is_empty():
-            self._head = node
-            node.next = self._head
+            self.head = node
+            node.next = self.head
         else:
-            #添加的节点指向_head
-            node.next = self._head
-            # 移到链表尾部，将尾部节点的next指向node
-            cur = self._head
-            while cur.next != self._head:
+            #The added node points to the head
+            node.next = self.head
+            # Move to the end of the list and point the next node of the tail node to node
+            cur = self.head
+            while cur.next != self.head:
                 cur = cur.next
             cur.next = node
-            #_head指向添加node的
-            self._head = node
+            #Head points to add node
+            self.head = node
 
     def insert_append(self, data):
-        """尾部插入元素"""
+        """Insert data at the end of the list"""
         node = Node(data)
         if self.is_empty():
-            self._head = node
-            node.next = self._head
+            self.head = node
+            node.next = self.head
         else:
-            cur = self._head
-            while cur.next != self._head:
+            cur = self.head
+            while cur.next != self.head:
                 cur = cur.next
             cur.next = node
-            node.next=self._head
+            node.next=self.head
 
     def insert(self, pos, data):
-        """在指定位置添加节点"""
+        """
+        List insert operation
+        :param value: The value to be inserted
+        :param index: The position to be inserted
+        :return: None
+        """
         if pos <= 0:
             self.insert_head(data)
         elif pos > (self.get_length() - 1):
             self.insert_append(data)
         else:
             node = Node(data)
-            cur = self._head
+            cur = self.head
             count = 0
-            # 移动到指定位置的前一个位置
+            # Move to the previous position in the specified position
             while count < (pos-1):
                 count += 1
                 cur = cur.next
@@ -138,29 +142,29 @@ class CircularSinglyLinkList(object):
             cur.next = node
 
     def delete_by_data(self, data):
-        """删除元素"""
+        """delete element by data"""
         if self.is_empty():
             return
         else:
-            cur = self._head
+            cur = self.head
             try:
                 if cur.data == data:
-                    # 如果首节点的元素即是要删除的元素
+                    # If the element of the first node is the element to be deleted
                     if cur.next == None:
-                        self._head = None
+                        self.head = None
                     else:
-                        # 如果链表不止一个节点
-                        # 先找到尾节点，将尾节点的next指向第二个节点
-                        while cur.next != self._head:
+                        # If the linked list has more than one node
+                        # First find the tail node, point the next node's next to the second node
+                        while cur.next != self.head:
                             cur = cur.next
-                        # cur指向了尾节点
-                        cur.next = self._head.next
-                        self._head = self._head.next
+                        # cur pointed to the tail node
+                        cur.next = self.head.next
+                        self.head = self.head.next
                     return
                 else:
-                    help_node = self._head
-                    while cur.next != self._head:
-                        # 找到了要删除的元素
+                    help_node = self.head
+                    while cur.next != self.head:
+                        # Found the element to delete
                         if cur.data == data:
                             help_node.next = cur.next
                             return
@@ -174,32 +178,30 @@ class CircularSinglyLinkList(object):
                 print("there is no the %d in the lined list." % data)
 
     def delete_by_index(self, index):
-        """删除链表中某个位置的节点"""
-
+        """ deletes a node in a location in the list"""
         global help_node
-        cur = self._head
+        cur = self.head
         length = self.get_length()
         if type(index) is int:
             if self.is_empty():
                 return
             else:
                 if index > length:
-                    # 索引值超出范围直接提示并且退出
+                    # The index value is out of range and prompts and exits
                     print("Index  is out of range.")
                     return
                 else:
                     if index == 0:
-                        # 如果首节点的元素即是要删除的元素
                         if cur.next == None:
-                            self._head = None
+                            self.head = None
                         else:
-                            # 如果链表不止一个节点
-                            # 先找到尾节点，将尾节点的next指向第二个节点
-                            while cur.next != self._head:
+                            # If the linked list has more than one node
+                            # First find the tail node, point the next node's next to the second node
+                            while cur.next != self.head:
                                 cur = cur.next
-                            # cur指向了尾节点
-                            cur.next = self._head.next
-                            self._head = self._head.next
+                            # cur pointed to the tail node
+                            cur.next = self.head.next
+                            self.head = self.head.next
                         return
 
                     else:
@@ -215,25 +217,25 @@ class CircularSinglyLinkList(object):
             return
 
     def update(self, value, index):
-        """为链表中某个位置的节点修改值"""
+        """modifies the value for a node in a location in the list"""
 
-        cur=self._head
+        cur=self.head
         length = self.get_length()
         if type(index) is int:
             if index > length:
-                # 索引值超出范围直接提示并且退出
+                # The index value is out of range and prompts and exits
                 print("Index  is out of range.")
                 return
             else:
                 this_node = Node(data=value)
                 if index == 0:
-                    while cur.next !=self._head:
+                    while cur.next !=self.head:
                         cur=cur.next
-                    this_node.next = self._head.next
+                    this_node.next = self.head.next
                     cur.next = this_node
-                    self._head = this_node
+                    self.head = this_node
                 else:
-                    cur = self._head
+                    cur = self.head
                     while index - 1:
                         cur = cur.next
                         index -= 1
@@ -245,8 +247,8 @@ class CircularSinglyLinkList(object):
             return
 
     def clear_double_linkedlist(self):
-        """清空链表"""
-        self._head = None
+        """empty linked list"""
+        self.head = None
         self.length = 0
         print("Clear the linked list finished.")
 
