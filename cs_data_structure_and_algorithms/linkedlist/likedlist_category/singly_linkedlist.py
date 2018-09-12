@@ -12,7 +12,7 @@ class Node:
         return str(self.data)
 
 
-class SinglyLinkedList:
+class SinglyLinkedList(object):
     def __init__(self):
         """
         Initialize SinglyLinkedList 
