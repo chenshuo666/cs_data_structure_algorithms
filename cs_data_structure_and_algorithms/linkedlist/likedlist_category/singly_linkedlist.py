@@ -48,8 +48,7 @@ class SinglyLinkedList(object):
         j = 0
         p = self.head
         if self.is_empty():
-            print('Linklist is empty.')
-            return
+            return -1
         else:
             while p.next != 0 and j < index:
                 p = p.next
@@ -57,7 +56,7 @@ class SinglyLinkedList(object):
             if j == index:
                 return p.data
             else:
-                print('Target is not exist!')
+                return -1
 
     def get_data_by_self(self, data):
         '''Determine whether data exists by data'''
@@ -86,6 +85,15 @@ class SinglyLinkedList(object):
                 node = node.next
                 print("-->", node.data, end=' ')
             print(" ")
+
+    def insert_head(self, data):
+        """Insert data at the head of the list"""
+        node = Node(data)
+        if self.is_empty():
+            self.head = node
+        else:
+            node.next = self.head
+            self.head = node
 
     def insert_append(self, this_node):
         '''Insert data at the end of the list'''
@@ -221,3 +229,12 @@ class SinglyLinkedList(object):
         self.head = None
         self.length = 0
         print("Clear the linked list finished.")
+
+
+if __name__ == '__main__':
+    t1 = SinglyLinkedList()
+    for i in range(10):
+        t1.insert_append(i)
+    t1.insert_head(99)
+    t1.insert_head(34)
+    t1.travel_print()
