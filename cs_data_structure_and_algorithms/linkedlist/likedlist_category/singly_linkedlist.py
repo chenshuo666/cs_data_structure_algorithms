@@ -19,6 +19,7 @@ class SinglyLinkedList(object):
         """
         self.length = 0
         self.head = None
+        self.record = []
 
     def is_empty(self):
         """
@@ -230,11 +231,47 @@ class SinglyLinkedList(object):
         self.length = 0
         print("Clear the linked list finished.")
 
+    def reverse(self, root):
+        if root == None:
+            return -1
+        elif root.next == None:
+            return -1
+        else:
+            cur = root.next
+            root.next = cur.next
+            cur.next = root
+            root = cur
+            root.next.next = self.reverse(root.next.next)
+            return root
+
+    def merge(self, a, b):
+
+        global result
+        if a.data <= b.data:
+            result = a
+            self.record.append(a.data)
+            result.next = self.merge(a.next,b)
+        else:
+            result = b
+            self.record.append(b.data)
+            result.next = self.merge(b.next, a)
+        return result
+
 
 if __name__ == '__main__':
     t1 = SinglyLinkedList()
     for i in range(10):
         t1.insert_append(i)
+    print(t1.head.next.data)
     t1.insert_head(99)
     t1.insert_head(34)
     t1.travel_print()
+
+    a = [1, 3, 6, 7, 13, 15, 17, 23, 45, 567, 6865, 46758]
+    t2 = SinglyLinkedList()
+    for i in range(len(a)):
+        t2.insert_append(a[i])
+    m=t1.head
+    n=t2.head
+    t1.merge(m,n)
+    print(t1.record)
