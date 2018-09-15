@@ -22,15 +22,6 @@ class LinkedListStack(object):
     def get_height(self):
         """获取栈的大小"""
         return self.height
-        # current_node = self.top
-        # if current_node:
-        #     i = 1
-        #     while current_node.next:
-        #         current_node = current_node.next
-        #         i += 1
-        #     return i
-        # else:
-        #     return 0
 
     def isEmpty(self):
         if self.top == None:

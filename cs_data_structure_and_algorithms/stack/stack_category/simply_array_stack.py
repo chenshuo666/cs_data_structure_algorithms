@@ -57,8 +57,6 @@ class SimplyArrayStack:
                 length = length-1
             print(" ")
 
-
-
     def clear_simply_array_stack(self):
         self.top = None
         self.length = 0
