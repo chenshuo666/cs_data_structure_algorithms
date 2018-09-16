@@ -10,9 +10,9 @@ class DeleteSameStack(object):
     def __init__(self, stack):
         self.stack = stack
 
-    def del_repeatnum(self,items):
+    def del_repeatnum(self):
         s = []
-        for i in items:
+        for i in self.stack.items:
             print(i)
             if i not in s:
                 s.append(i)
@@ -26,5 +26,5 @@ if __name__ == "__main__":
     for i in range(len(a)):
         t1.push(a[i])
     m = DeleteSameStack(t1)
-    print(m.del_repeatnum(t1.items))
+    print(m.del_repeatnum())
 
