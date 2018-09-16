@@ -13,10 +13,21 @@ class TwoStackQueue(object):
     def __init__(self):
         self.stack1 = LinkedListStack(10)
         self.stack2 = LinkedListStack(10)
+        self.length = 0
+
+    def get_length(self):
+        return self.length
+
+    def isEmpty(self):
+        if self.length == 0:
+            return True
+        else:
+            return False
 
     def enqueue(self, data):
 
         self.stack1.push(data)
+        self.length += 1
 
     def dequeue(self):
         if (self.stack2.isEmpty() == True):
@@ -24,8 +35,10 @@ class TwoStackQueue(object):
                 self.stack2.push(self.stack1.get_top())
                 self.stack1.pop()
             self.stack2.pop()
+            self.length -= 1
         else:
             self.stack2.pop()
+            self.length -= 1
 
     def get_top(self):
         if (self.stack2.isEmpty() == True):
