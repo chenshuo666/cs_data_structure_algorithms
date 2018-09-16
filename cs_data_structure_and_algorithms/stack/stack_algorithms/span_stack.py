@@ -7,7 +7,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__)+'/'+'..'))
 from stack_category.simply_array_stack import SimplyArrayStack
 
-class AdjacentNumberStack(object):
+class SpanStack(object):
     def __init__(self, stack):
         self.stack = stack
 
