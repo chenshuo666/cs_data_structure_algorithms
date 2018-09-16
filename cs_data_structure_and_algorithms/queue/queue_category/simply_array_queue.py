@@ -27,7 +27,7 @@ class SimplyArrayQueue():
             return False
 
     def enqueue(self, data):
-        #进队列,从队尾插入
+
         if self.isQueueFull():
             print("Queue is full!")
         else:
@@ -36,7 +36,7 @@ class SimplyArrayQueue():
             self.length += 1
 
     def dequeue(self):
-        #出队列，从队首删除
+
         if self.isEmpty():
             print("Queue is empty!")
         else:
@@ -47,7 +47,6 @@ class SimplyArrayQueue():
             return out_data
 
     def travel_print(self):
-        #显示队列元素， 从队首开始显示
         if self.isEmpty():
             print("Queue is empty!")
         else:
