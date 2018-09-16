@@ -26,7 +26,7 @@ class SimplyArrayQueue():
         else:
             return False
 
-    def enQueue(self, data):
+    def enqueue(self, data):
         #进队列,从队尾插入
         if self.isQueueFull():
             print("Queue is full!")
@@ -35,7 +35,7 @@ class SimplyArrayQueue():
             self.rear = (self.rear + 1) % self.maxsize
             self.length += 1
 
-    def deQueue(self):
+    def dequeue(self):
         #出队列，从队首删除
         if self.isEmpty():
             print("Queue is empty!")
@@ -52,6 +52,7 @@ class SimplyArrayQueue():
             print("Queue is empty!")
         else:
             j = self.front
+            print('front:')
             while j != self.rear:
                 print(self.data[j])
                 j = (j + 1) % self.maxsize
