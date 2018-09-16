@@ -6,6 +6,8 @@ import os
 import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__)+'/'+'..'))
 from stack_category.simply_array_stack import SimplyArrayStack
+
+
 class PalindromeStack(object):
     def __init__(self,stack,stack1):
         self.stack = stack
