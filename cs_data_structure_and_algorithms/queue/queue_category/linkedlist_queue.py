@@ -3,7 +3,7 @@
 # Author:Sebastian Williams
 
 class Node(object):
-    # 节点
+    # node
     def __init__(self, data=None):
         self.data = data
         self.next = None
@@ -32,7 +32,7 @@ class LinkedListQueue():
             return False
 
     def enqueue(self, data):
-        # 入队
+        #
         node = Node(data)
         if self.isEmpty():
             self.front = node
@@ -47,7 +47,7 @@ class LinkedListQueue():
                 self.length += 1
 
     def dequeue(self):
-        # 出队
+        #
         if self.isEmpty():
             raise ValueError("queue is empty!")
         else:
