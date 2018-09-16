@@ -20,7 +20,7 @@ class LinkedListStack(object):
             return None
 
     def get_height(self):
-        """获取栈的大小"""
+        """Get the size of the stack """
         return self.height
 
     def isEmpty(self):
@@ -35,30 +35,30 @@ class LinkedListStack(object):
         else:
             return False
 
-    def push(self,node_instantiation):#添加到栈中
+    def push(self,node_instantiation):#Add to the stack
         if self.isStackFull() :
             print("the stack is full")
         else:
-            node_instantiation=Node(node_instantiation)  #实例化节点
-            node_instantiation.next=self.top  #顶端元素传值给一个指针
+            node_instantiation=Node(node_instantiation)  #Instance node
+            node_instantiation.next=self.top  #Top element passed value to a pointer
             self.top=node_instantiation
             self.height += 1
             return node_instantiation.data
 
 
     @property
-    def pop(self):  #出栈
+    def pop(self):  #Popping
         if self.top == None:
             return None
         else:
             tmp=self.top.data
-            self.top=self.top.next  #下移一位，进行
+            self.top=self.top.next  #Move one down and proceed
             self.height -= 1
             return tmp
 
     def travel_print(self):
         """
-        遍历整个栈，并输出栈的值
+        Traverse the entire stack and output the value of the stack
         """
         if self.isEmpty():
             print("Stack's height is 0")
