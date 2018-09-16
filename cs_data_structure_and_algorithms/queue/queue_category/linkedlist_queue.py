@@ -2,7 +2,6 @@
 #-*- coding:utf-8 -*-
 # Author:Sebastian Williams
 
-
 class Node(object):
     # 节点
     def __init__(self, data=None):
