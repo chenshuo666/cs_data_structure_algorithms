@@ -57,16 +57,16 @@ class LinkedListQueue():
             return out_data
 
     def travel_print(self):
-
+        a = []
         if self.isEmpty():
             print("queue is empty!")
         j = self.length
         node = self.front
         while j > 0:
-            print(node.data)
+            a.append(node.data)
             node = node.next
             j -= 1
-        print('')
+        return a
 
 
 
