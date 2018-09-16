@@ -45,8 +45,6 @@ class LinkedListStack(object):
             self.height += 1
             return node_instantiation.data
 
-
-    @property
     def pop(self):  #Popping
         if self.top == None:
             return None
