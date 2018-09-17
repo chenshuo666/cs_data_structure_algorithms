@@ -133,7 +133,7 @@ class BinaryTree:
         """Get the num of all nodes"""
         return self.node_number
 
-    def traverse_print(self):
+    def hierarchicalorder(self):
         """Hierarchical traversal"""
         if self.root is None:
             return None
@@ -191,16 +191,16 @@ if __name__ == "__main__":
     t = BinaryTree()
     for i in range(12):
         t.add(i)
-    print('层序遍历:', t.traverse_print())
-    print('先序遍历:', t.preorder(t.root))
-    print('中序遍历:', t.inorder(t.root))
-    print('后序遍历:', t.postorder(t.root))
-    print(t.get_height(t.root))
-    print(t.node_number)
-    print(t.strict_binary_tree())
-    print(t.full_binary_tree())
-    print(t.complete_binary_tree())
-    print(t.balanced_binary_tree(t.root))
-    print(t.get_data_by_self(t.root,13))
+    # print('层序遍历:', t.hierarchicalorder())
+    # print('先序遍历:', t.preorder(t.root))
+    # print('中序遍历:', t.inorder(t.root))
+    # print('后序遍历:', t.postorder(t.root))
+    # print(t.get_height(t.root))
+    # print(t.node_number)
+    # print(t.strict_binary_tree())
+    # print(t.full_binary_tree())
+    # print(t.complete_binary_tree())
+    # print(t.balanced_binary_tree(t.root))
+    # print(t.get_data_by_self(t.root,13))
     t.clear_tree()
-    print('层序遍历:', t.traverse_print())
+    print('层序遍历:', t.hierarchicalorder())
