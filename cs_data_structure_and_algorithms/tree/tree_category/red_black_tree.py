@@ -2,10 +2,6 @@
 #-*- coding:utf-8 -*-
 # Author:Sebastian Williams
 
-# coding=utf-8
-# 红黑树Python实现
-
-# 颜色常量
 RED = 0
 BLACK = 1
 

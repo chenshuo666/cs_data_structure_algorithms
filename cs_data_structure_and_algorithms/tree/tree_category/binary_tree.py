@@ -35,6 +35,7 @@ class BinaryTree:
                     q.append(pop_node.right)
 
     def strict_binary_tree(self):
+        """Judge strict binary tree"""
         if self.root is None:
             return None
         node_array = [self.root]
@@ -56,6 +57,7 @@ class BinaryTree:
             return False
 
     def full_binary_tree(self):
+        """judge full binary tree"""
         count  = self.get_height(self.root)
         n = self.get_node_number()
         if n == (2^count)-1:
@@ -64,11 +66,11 @@ class BinaryTree:
             return False
 
     def complete_binary_tree(self):
-
+        """judge complete binary tree"""
         if not self.root:
             return False
         node_array = [self.root]
-        flag = False  # 是否激活判断过程
+        flag = False # Whether to activate the judgment process
         while node_array != []:
             pop_node = node_array.pop(0)
 
@@ -77,15 +79,15 @@ class BinaryTree:
             if pop_node.right is not None:
                 node_array.append(pop_node.right)
 
-            if (not pop_node.left) and pop_node.right:  # 左空、又不空必不为CBT
+            if (not pop_node.left) and pop_node.right:  # Left empty, right not empty must not be CBT
                 return False
 
-            if flag:  # 若过程激活则判断节点是否为叶节点
+            if flag:  # If the process is activated, determine if the node is a leaf node.
                 if pop_node.left or pop_node.right:
                     return False
 
-            if not (pop_node.left and pop_node.right):  # 左不空、右空 | 左空、右空
-                flag = True  # 激活判断在此之后的节点必须为叶节点
+            if not (pop_node.left and pop_node.right):  # Left not empty, right empty | left empty, right empty
+                flag = True  # The node after the activation judgment must be a leaf node
 
         return True
 
@@ -126,7 +128,7 @@ class BinaryTree:
     def get_node_number(self):
         return self.node_number
 
-    def traverse_print(self):  # 层次遍历
+    def traverse_print(self):  # Hierarchical traversal
         if self.root is None:
             return None
         else:
@@ -146,7 +148,7 @@ class BinaryTree:
                     self.node_number += 1
         return res
 
-    def preorder(self,root):  # 先序遍历
+    def preorder(self,root):  # Pre-order traversal
         if root is None:
             return []
         result = [root.data]
@@ -154,7 +156,7 @@ class BinaryTree:
         right_data = self.preorder(root.right)
         return result + left_data + right_data
 
-    def inorder(self,root):  # 中序序遍历
+    def inorder(self,root):  # In-order traversal
         if root is None:
             return []
         result = [root.data]
@@ -162,7 +164,7 @@ class BinaryTree:
         right_data = self.inorder(root.right)
         return left_data + result + right_data
 
-    def postorder(self,root):  # 后序遍历
+    def postorder(self,root):  # Post-order traversal
         if root is None:
             return []
         result = [root.data]

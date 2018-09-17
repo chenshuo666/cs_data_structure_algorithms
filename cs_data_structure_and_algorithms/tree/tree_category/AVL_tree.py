@@ -10,8 +10,6 @@ class Node:
         self.right_height = 0
         self.data = None
 
-
-# 二叉树对象
 class BalancedBinaryTree(object):
     def __init__(self):
         self.root = None
@@ -19,13 +17,14 @@ class BalancedBinaryTree(object):
         self.middle_list = []
         self.after_list = []
 
-    # 生成二叉树
+
     def create_tree(self, n=0, l=()):
+        """Generating a binary tree"""
         if l == []:
-            print("传入的列表为空")
+            print("The incoming list is empty")
             return
         if n > len(l) - 1:
-            print("二叉树生成")
+            print("Generating a binary tree")
             return
         node = Node()
         node.data = l[n]
@@ -36,37 +35,40 @@ class BalancedBinaryTree(object):
             self.add(self.root, node)
         self.create_tree(n + 1, l)
 
-    # 添加节点
+
     def add(self, parent, new_node):
+        """add node"""
         if new_node.data > parent.data:
-            # 插入值比父亲值大，所以在父节点右边
+            # The inserted value is larger than the parent value, so on the right side of the parent node
             if parent.right == None:
                 parent.right = new_node
-                # 新插入节点的父亲节点的高度值为1，也就是子高度值0+1
+                # The height of the parent node of the newly inserted node is 1, that is, the child height value is 0+1.
                 parent.right_height = 1
-                # 插入值后 从下到上更新节点的height
+                # After inserting the value, update the height of the node from bottom to top.
             else:
                 self.add(parent.right, new_node)
-                # 父亲节点的右高度等于右孩子，左右高度中较大的值 + 1
+                # The right height of the father node is equal to the right child,
+                # the larger of the left and right heights + 1
                 parent.right_height = max(parent.right.right_height, parent.right.left_height) + 1
-                # ======= 此处开始判断平衡二叉树=======
-                # 右边高度大于左边高度 属于右偏
+                # Start to judge the balanced binary tree here
+                # The height on the right is greater than the height on the left.
                 if parent.right_height - parent.left_height >= 2:
                     self.right_avertence(parent)
         else:
-            # 插入值比父亲值小，所以在父节点左边
+            # The inserted value is smaller than the parent value, so on the left side of the parent node
             if parent.left == None:
                 parent.left = new_node
                 parent.left_height = 1
             else:
                 self.add(parent.left, new_node)
                 parent.left_height = max(parent.left.right_height, parent.left.left_height) + 1
-                # ======= 此处开始判断平衡二叉树=======
-                # 左边高度大于右边高度 属于左偏
+                # Start to judge the balanced binary tree here
+                # The height on the left is greater than the height on the right.
                 if parent.left_height - parent.right_height >= 2:
                     self.left_avertence(parent)
 
     def get_height(self, root):
+        """get height of the AVL tree"""
         if root is None:
             return 0
         else:
@@ -78,6 +80,7 @@ class BalancedBinaryTree(object):
             return (rightheight + 1)
 
     def balanced_binary_tree(self, root):
+        """judge balanced binary tree"""
         if not root:
             return True
         leftheight = self.get_height(root.left)
@@ -86,39 +89,43 @@ class BalancedBinaryTree(object):
             return False
         return self.balanced_binary_tree(root.left) and self.balanced_binary_tree(root.right)
 
-    # 更新当前节点下的所有节点的高度
+
     def update_height(self, node):
-        # 初始化节点高度值为0
+        """ Update the height of all nodes under the current node"""
+
         node.left_height = 0
         node.right_height = 0
-        # 是否到最底层的一个
+        # Whether to the bottom of the
         if node.left == None and node.right == None:
             return
         else:
             if node.left:
                 self.update_height(node.left)
-                # 当前节点的高度等于左右子节点高度的较大值 + 1
+                # The height of the current node is equal to the larger value of the height of the left
+                # and right child nodes + 1
                 node.left_height = max(node.left.left_height, node.left.right_height) + 1
             if node.right:
                 self.update_height(node.right)
-                # 当前节点的高度等于左右子节点高度的较大值 + 1
+                # The height of the current node is equal to the larger value of the height of the left and
+                # right child nodes + 1
                 node.right_height = max(node.right.left_height, node.right.right_height) + 1
-            # 检查是否仍有不平衡
+            # Check if there is still imbalance
             if node.left_height - node.right_height >= 2:
                 self.left_avertence(node)
             elif node.left_height - node.right_height <= -2:
                 self.right_avertence(node)
 
     def right_avertence(self, node):
-        # 右偏 就将当前节点的最左节点做父亲
+        """right avertence"""
+        # Right-handed, the father of the current node is the father.
         new_code = Node()
         new_code.data = node.data
         new_code.left = node.left
         best_left = self.best_left_right(node.right)
         v = node.data
-        # 返回的对象本身,
+
         if best_left == node.right and best_left.left == None:
-            # 说明当前节点没有有节点
+            # Indicate that the current node does not have a node.
             node.data = best_left.data
             node.right = best_left.right
         else:
@@ -127,16 +134,17 @@ class BalancedBinaryTree(object):
         node.left = new_code
         self.update_height(node)
 
-    # 处理左偏情况
+
     def left_avertence(self, node):
+        """left avertence"""
         new_code = Node()
         new_code.data = node.data
         new_code.right = node.right
         best_right = self.best_left_right(node.left, 1)
         v = node.data
-        # 返回的对象本身,
+
         if best_right == node.left and best_right.right == None:
-            # 说明当前节点没有有节点
+            # Indicate that the current node does not have a node.
             node.data = best_right.data
             node.left = best_right.left
         else:

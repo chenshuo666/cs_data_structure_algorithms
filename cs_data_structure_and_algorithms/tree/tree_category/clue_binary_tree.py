@@ -60,7 +60,7 @@ class ClueBinaryTree(object):
                 node_list[i].rtag = 1
         return node_list
 
-    def inorder(self,root):  # 中序序遍历
+    def inorder(self,root):
         if root is None:
             return []
         result = [root]

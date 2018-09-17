@@ -12,8 +12,9 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-    # 递归搜索
+
     def search(self, root, parent, data):
+        """Recursive search"""
         if root is None:
             return False, root, parent
         if root.data == data:
@@ -23,8 +24,8 @@ class BinarySearchTree:
         else:
             return self.search(root.right, root, data)
 
-    # 插入
     def insert(self, data):
+        """insert data to the tree"""
         node = Node(data)
         if self.root is None:
             self.root = node
@@ -36,8 +37,8 @@ class BinarySearchTree:
             else:
                 p.left = node
 
-    # 删除
     def delete(self, root, data):
+        """delete data from the tree"""
         flag, node, parent = self.search(root, root, data)
         if flag is False:
             print("There is no the data , delete fail!")
@@ -54,7 +55,7 @@ class BinarySearchTree:
                 else:
                     parent.right= node.left
                 del parent
-            else:  # 左右子树均不为空
+            else:  # Left and right subtrees are not empty
                 pre = node.right
                 if pre.left is None:
                     node.data = pre.data
@@ -70,7 +71,7 @@ class BinarySearchTree:
                     del parent
 
 
-    def preorder(self,root):  # 先序遍历
+    def preorder(self,root):
         if root is None:
             return []
         result = [root.data]
@@ -78,7 +79,7 @@ class BinarySearchTree:
         right_data = self.preorder(root.right)
         return result + left_data + right_data
 
-    def inorder(self,root):  # 中序序遍历
+    def inorder(self,root):
         if root is None:
             return []
         result = [root.data]
@@ -86,7 +87,7 @@ class BinarySearchTree:
         right_data = self.inorder(root.right)
         return left_data + result + right_data
 
-    def postorder(self,root):  # 后序遍历
+    def postorder(self,root):
         if root is None:
             return []
         result = [root.data]
@@ -97,10 +98,10 @@ class BinarySearchTree:
             
 if __name__ == '__main__':
 
-    BinarySearchTree = BinarySearchTree()  # 创建二叉查找树
+    Tree = BinarySearchTree()
     for i in range(20):
-        BinarySearchTree.insert(i)
-    print(BinarySearchTree.inorder(BinarySearchTree.root))  # 中序遍历
+        Tree.insert(i)
+    print(Tree.inorder(Tree.root))
     
-    BinarySearchTree.delete(BinarySearchTree.root, 9)
-    print(BinarySearchTree.inorder(BinarySearchTree.root))
+    Tree.delete(Tree.root, 9)
+    print(Tree.inorder(Tree.root))

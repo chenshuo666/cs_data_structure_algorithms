@@ -2,9 +2,6 @@
 #-*- coding:utf-8 -*-
 # Author:Sebastian Williams
 
-# -*-coding: utf-8-*-
-
-# # 表达式树ADT
 class Node():
     def __init__(self,data):
         self.data=data
