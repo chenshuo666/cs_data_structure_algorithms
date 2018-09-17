@@ -3,13 +3,14 @@
 # Author:Sebastian Williams
 
 class Node:
+    """Node"""
     def __init__(self,data):
         self.data = data
         self.left = None
         self.right = None
 
 class BinaryTree:
-
+    """Initialize the binary tree"""
     def __init__(self):
         self.root = None
         self.node_number = 0
@@ -92,6 +93,7 @@ class BinaryTree:
         return True
 
     def balanced_binary_tree(self,root):
+        """Determine if it is a balanced binary tree"""
         if not root:
             return True
         leftheight = self.get_height(root.left)
@@ -101,6 +103,7 @@ class BinaryTree:
         return self.balanced_binary_tree(root.left) and self.balanced_binary_tree(root.right)
 
     def get_height(self,root):
+        """Get the height of the tree"""
         if root is None:
             return 0
         else:
@@ -112,6 +115,7 @@ class BinaryTree:
             return (rightheight+1)
 
     def get_data_by_self(self,root,data):
+        """Determine if there is a node by data"""
         if root == None:
             return False
         else:
@@ -126,9 +130,11 @@ class BinaryTree:
 
 
     def get_node_number(self):
+        """Get the num of all nodes"""
         return self.node_number
 
-    def traverse_print(self):  # Hierarchical traversal
+    def traverse_print(self):
+        """Hierarchical traversal"""
         if self.root is None:
             return None
         else:
@@ -148,7 +154,8 @@ class BinaryTree:
                     self.node_number += 1
         return res
 
-    def preorder(self,root):  # Pre-order traversal
+    def preorder(self,root):
+        """Pre-order traversal"""
         if root is None:
             return []
         result = [root.data]
@@ -156,7 +163,8 @@ class BinaryTree:
         right_data = self.preorder(root.right)
         return result + left_data + right_data
 
-    def inorder(self,root):  # In-order traversal
+    def inorder(self,root):
+        """In-order traversal"""
         if root is None:
             return []
         result = [root.data]
@@ -164,7 +172,8 @@ class BinaryTree:
         right_data = self.inorder(root.right)
         return left_data + result + right_data
 
-    def postorder(self,root):  # Post-order traversal
+    def postorder(self,root):
+        """Post-order traversal"""
         if root is None:
             return []
         result = [root.data]
@@ -173,6 +182,7 @@ class BinaryTree:
         return left_data + right_data + result
 
     def clear_tree(self):
+        """Empty the tree"""
         self.root = None
         self.node_number = 0
         print("the tree is empty!")
