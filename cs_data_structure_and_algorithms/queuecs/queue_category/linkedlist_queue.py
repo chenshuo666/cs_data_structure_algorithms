@@ -40,7 +40,7 @@ class LinkedListQueue():
             self.length +=1
         else:
             if self.isQueueFull():
-                print("queue is full!")
+                print("queuecs is full!")
             else:
                 self.rear.next = node
                 self.rear = node
@@ -49,7 +49,7 @@ class LinkedListQueue():
     def dequeue(self):
         #
         if self.isEmpty():
-            raise ValueError("queue is empty!")
+            raise ValueError("queuecs is empty!")
         else:
             out_data = self.front.data
             self.front = self.front.next
@@ -59,7 +59,7 @@ class LinkedListQueue():
     def travel_print(self):
         a = []
         if self.isEmpty():
-            print("queue is empty!")
+            print("queuecs is empty!")
         j = self.length
         node = self.front
         while j > 0:
