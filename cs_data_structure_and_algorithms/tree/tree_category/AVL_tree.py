@@ -13,9 +13,9 @@ class Node:
 class BalancedBinaryTree(object):
     def __init__(self):
         self.root = None
-        self.front_list = []
-        self.middle_list = []
-        self.after_list = []
+        self.preorder_list = []
+        self.inorder_list = []
+        self.postorder_list = []
 
 
     def create_tree(self, n=0, l=()):
@@ -44,7 +44,7 @@ class BalancedBinaryTree(object):
                 parent.right = new_node
                 # The height of the parent node of the newly inserted node is 1, that is, the child height value is 0+1.
                 parent.right_height = 1
-                # After inserting the value, update the height of the node from bottom to top.
+                # postorder inserting the value, update the height of the node from bottom to top.
             else:
                 self.add(parent.right, new_node)
                 # The right height of the father node is equal to the right child,
@@ -153,9 +153,8 @@ class BalancedBinaryTree(object):
         node.right = new_code
         self.update_height(node)
 
-    # 返回node节点最左（右）子孙的父级
+    
     def best_left_right(self, node, type=0):
-        # type=0 默认找最左子孙
         if type == 0:
             if node.left == None:
                 return node
@@ -171,63 +170,62 @@ class BalancedBinaryTree(object):
             else:
                 return self.best_left_right(node.right, type)
 
-    # 前序(先中再左最后右)
-    def front(self, node=None):
+    def preorder(self, node=None):
         if node == None:
-            self.front_list = []
+            self.preorder_list = []
             node = self.root
-        # 输出当前节点
-        self.front_list.append(node.data)
-        # 先判断左枝
-        if not node.left == None:
-            self.front(node.left)
-        # 再判断右枝
-        if not node.right == None:
-            self.front(node.right)
-        # 返回最终结果
-        return self.front_list
 
-    # 中序(先左再中最后右)
-    def middle(self, node=None):
-        if node == None:
-            node = self.root
-        # 先判断左枝
-        if not node.left == None:
-            self.middle(node.left)
-        # 输出当前节点
-        self.middle_list.append(node.data)
-        # 再判断右枝
-        if not node.right == None:
-            self.middle(node.right)
-        return self.middle_list
+        self.preorder_list.append(node.data)
 
-    # 后序(先左再右最后中)
-    def after(self, node=None):
+        if not node.left == None:
+            self.preorder(node.left)
+
+        if not node.right == None:
+            self.preorder(node.right)
+
+        return self.preorder_list
+
+
+    def inorder(self, node=None):
         if node == None:
             node = self.root
-        # 先判断左枝
-        if not node.left == None:
-            self.after(node.left)
-        # 再判断右枝
-        if not node.right == None:
-            self.after(node.right)
-        self.after_list.append(node.data)
-        return self.after_list
 
-    # 节点删除
+        if not node.left == None:
+            self.inorder(node.left)
+
+        self.inorder_list.append(node.data)
+
+        if not node.right == None:
+            self.inorder(node.right)
+        return self.inorder_list
+
+
+    def postorder(self, node=None):
+        if node == None:
+            node = self.root
+    
+        if not node.left == None:
+            self.postorder(node.left)
+
+        if not node.right == None:
+            self.postorder(node.right)
+        self.postorder_list.append(node.data)
+        return self.postorder_list
+
+
     def del_node(self, v, node=None):
         if node == None:
             node = self.root
-            # 删除根节点
+
             if node.data == v:
                 self.del_root(self.root)
                 return
-        # 删除当前节点的左节点
+        
         if node.left:
             if node.left.data == v:
                 self.del_left(node)
                 return
-        # 删除当前节点的右节点
+     
         if node.right:
             if node.right.data == v:
                 self.del_right(node)
@@ -236,21 +234,21 @@ class BalancedBinaryTree(object):
             if node.right:
                 self.del_node(v, node.right)
             else:
-                print("删除的元素不存在")
+                print("The deleted element does not exist")
         else:
             if node.left:
                 self.del_node(v, node.left)
             else:
-                print("删除的元素不存在")
+                print("The deleted element does not exist")
 
-    # 删除当前节点的右节点
+
     def del_right(self, node):
-        # 情况1 删除节点没有右枝
+      
         if node.right.right == None:
             node.right = node.right.left
         else:
             best_left = self.best_left_right(node.right.right)
-            # 表示右枝最左孙就是右枝本身
+           
             if best_left == node.right.right and best_left.left == None:
                 node.right.data = best_left.data
                 node.right.right = best_left.right
@@ -258,14 +256,14 @@ class BalancedBinaryTree(object):
                 node.right.data = best_left.left.data
                 best_left.left = best_left.left.right
 
-    # 删除当前节点的左节点
+ 
     def del_left(self, node):
-        # 情况1 删除节点没有右枝
+        
         if node.left.right == None:
             node.left = node.left.left
         else:
             best_left = self.best_left_right(node.left.right)
-            # 表示右枝最左子孙就是右枝本身
+            
             if best_left == node.left.right and best_left.left == None:
                 node.left.data = best_left.data
                 node.left.right = best_left.right
@@ -273,7 +271,7 @@ class BalancedBinaryTree(object):
                 node.left.data = best_left.left.data
                 best_left.left = best_left.left.right
 
-    # 删除根节点
+
     def del_root(self, node):
         if node.right == None:
             if node.left == None:
@@ -282,7 +280,7 @@ class BalancedBinaryTree(object):
                 self.root = node.left
         else:
             best_left = self.best_left_right(node.right)
-            # 表示右枝最左子孙就是右枝本身
+     
             if best_left == node.right and best_left.left == None:
                 node.data = best_left.data
                 node.right = best_left.right
@@ -290,7 +288,7 @@ class BalancedBinaryTree(object):
                 node.data = best_left.left.data
                 best_left.left = best_left.left.right
 
-    # 搜索
+
     def search(self, v, node):
         if node == None:
             node = self.root
@@ -306,14 +304,13 @@ class BalancedBinaryTree(object):
 
 
 if __name__ == '__main__':
-    # 需要建立二叉树的列表
     list = [4, 6, 3, 1, 7, 9, 8, 5, 2]
     t = BalancedBinaryTree()
     t.create_tree(0, list)
-    res = t.front()
+    res = t.preorder()
     print('前序', res)
     print(t.search(4, t.root))
     t.del_root(t.root)
-    res = t.front()
+    res = t.preorder()
     print('前序', res)
 
