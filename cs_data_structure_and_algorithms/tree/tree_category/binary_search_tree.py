@@ -12,7 +12,6 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-
     def search(self, root, parent, data):
         """Recursive search"""
         if root is None:
@@ -29,13 +28,42 @@ class BinarySearchTree:
         node = Node(data)
         if self.root is None:
             self.root = node
-
         flag, n, p = self.search(self.root, self.root, data)
         if not flag:
             if data > p.data:
                 p.right= node
             else:
                 p.left = node
+
+    def find_max(self,root):
+        if root == None:
+            return None
+        else:
+            if root.right == None:
+                return root
+            else:
+                return self.find_max(root.right)
+
+    def find_min(self,root):
+        if root == None:
+            return None
+        else:
+            if root.left == None:
+                return root
+            else:
+                return self.find_max(root.left)
+
+    def judge_bst(self,root):
+        if root == None :
+            return True
+        if root.left == None and self.find_max(root.left).data > root.data:
+            return False
+        if root.right == None and self.find_min(root.right).data < root.data:
+            return False
+
+        if self.judge_bst(root.left) == False or self.judge_bst(root.right):
+            return False
+        return True
 
     def delete(self, root, data):
         """delete data from the tree"""
@@ -69,6 +97,22 @@ class BinarySearchTree:
                     node.data = next.data
                     pre.left = next.right
                     del parent
+
+    def array_to_bst(self,array,left,right):
+        if left > right :
+            return None
+        node = Node(None)
+        if left == right:
+            node.data = array[left]
+            node.left = None
+            node.right = None
+        else:
+            mid = int(left + int((right-left)/2))
+            node.data = array[mid]
+            node.left = self.array_to_bst(array,left,mid-1)
+            node.right = self.array_to_bst(array,mid + 1,right )
+
+        return node
 
 
     def preorder(self,root):
@@ -105,3 +149,6 @@ if __name__ == '__main__':
     
     Tree.delete(Tree.root, 9)
     print(Tree.inorder(Tree.root))
+    print(Tree.find_max(Tree.root).data)
+    print(Tree.find_min(Tree.root).data)
+    #print(Tree.judge_bst(Tree.root))
