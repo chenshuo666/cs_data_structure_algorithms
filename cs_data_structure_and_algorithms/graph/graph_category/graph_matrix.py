@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 
 class GraphMatrix:
     def __init__(self, vertice=[], matrix=[] ):
-        self.matrix = matrix  # 图的矩阵结构
-        self.vertice = vertice # 顶点的表示
+        self.matrix = matrix  # Matrix structure of the graph
+        self.vertice = vertice
 
-        self.edges_dict = {}  # {(tail, head):weight}有权图
+        self.edges_dict = {}  # {(tail, head):weight}
         self.edges_array = []  # (tail, head, weight)
         self.edges_array_copy = []
 
@@ -34,15 +34,18 @@ class GraphMatrix:
         except IndexError:
             print("OUT RANGE")
 
-    '''顶点的操作'''
-    def get_all_vertice(self):#获取所有的顶点
+    '''Version operation'''
+    def get_all_vertice(self):
+        """Get all the vertices"""
         return self.vertice
 
-    def get_vertice_num(self):#获取顶点的数目
+    def get_vertice_num(self):
+        """Get the number of vertices"""
         self.vertice_num = len(self.matrix)
         return self.vertice_num
 
-    def add_vertice(self,vertice,matrix_in):#增加一个顶点
+    def add_vertice(self,vertice,matrix_in):
+        """Add a vertex"""
         if vertice not in self.vertice:
             self.vertice.append(vertice)
         for i in range(self.vertice_num):
@@ -53,7 +56,8 @@ class GraphMatrix:
         else:
             return
 
-    def delete_vertice(self, x):#删除一个顶点
+    def delete_vertice(self, x):
+        """Delete a vertex"""
         index_t = 0
         if x in self.vertice:
             for i in range(len(self.vertice)):
@@ -70,9 +74,9 @@ class GraphMatrix:
             list(map(lambda delete: delete[index_t:], self.matrix))
             self.matrix.remove(self.matrix[index_t])
 
-
-    '''边的操作'''
-    def get_all_edges(self):#获取所有的边
+    '''Edge operation'''
+    def get_all_edges(self):
+        """Get all the edges"""
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix)):
                 if  self.matrix[i][j] != 0:
@@ -81,7 +85,8 @@ class GraphMatrix:
 
         return self.edges_array
 
-    def get_edge_num(self):#获取边的数目
+    def get_edge_num(self):
+        """Get number of all edges"""
         self.edge_num = 0
         for i in range(self.vertice_num):
             for j in range(self.vertice_num):
@@ -89,7 +94,8 @@ class GraphMatrix:
                     self.edge_num = self.edge_num + 1
         return self.edge_num
 
-    def add_edge(self, vertice1, vertice2):#增加一条边
+    def add_edge(self, vertice1, vertice2):
+        """add a new edge"""
         index1 = 0
         index2 = 0
         if vertice1 in self.vertice and vertice2 in self.vertice:
@@ -104,7 +110,8 @@ class GraphMatrix:
                 self.matrix[index1][index2] = 1
                 self.edge_num = self.edge_num + 1
 
-    def remove_edge(self, vertice1, vertice2):#删除边
+    def remove_edge(self, vertice1, vertice2):
+        """Delete a edge"""
         index1 = 0
         index2 = 0
         if vertice1 in self.vertice and vertice2 in self.vertice:
@@ -122,9 +129,9 @@ class GraphMatrix:
         else:
             return
 
-    '''图的遍历'''
-
+    '''Traversal of graphs'''
     def dfs(self,x):
+        """Deep traversal"""
         index_t = 0
         if x in self.vertice:
             for i in range(len(self.vertice)):
@@ -180,7 +187,9 @@ class GraphMatrix:
                 BFS()
         return res
 
+    """Shortest path algorithm"""
     def floyd(self, vertice, matrix):
+        """"""
         length = len(matrix)
         path = {}
         for i in range(length):
