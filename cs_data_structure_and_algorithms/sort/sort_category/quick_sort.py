@@ -7,7 +7,7 @@ class QuickSort(object):
         self.array = array
 
     def sort(self, lists, left, right):
-        # 快速排序
+
         if left >= right:
             return lists
         key = lists[left]
