@@ -2,11 +2,6 @@
 #-*- coding:utf-8 -*-
 # Author:Sebastian Williams
 
-#!/usr/bin/python
-#-*- coding:utf-8 -*-
-# Author:Sebastian Williams
-
-
 class RabinKarp(object):
     def __init__(self, str1, str2):
         self.str1 = str1
@@ -25,7 +20,7 @@ class RabinKarp(object):
         for i in range(0, size):
             self.hash_str2 += ord(str2[i])
 
-    def move(self): #前移一个单位
+    def move(self):
         if self.end <= len(self.str1) - 1:
             self.hash_str1 -= ord(self.str1[self.init])
             self.hash_str1 += ord(self.str1[self.end])
