@@ -33,11 +33,6 @@ class HeapSort():
 
         return lists
 
-if __name__ =="__main__":
-    m=[1,2,43,65,7,8,9,5,879,2352,365347,214321351]
-    t=HeapSort()
-    print(t.sort(m))
-
 
 
 
