@@ -11,20 +11,18 @@ class KMP():
     def kmp_match(self):
         m = len(self.arr1)
         n = len(self.arr2)
-        cur = 0  # 起始指针cur
+        cur = 0
         table = self.partial_table(self.arr2)
         while cur <= m - n:
             for i in range(n):
                 if self.arr1[i + cur] != self.arr2[i]:
-                    cur += max(i - table[i - 1], 1)  # 有了部分匹配表,我们不只是单纯的1位1位往右移,可以一次移动多位
+                    cur += max(i - table[i - 1], 1)
                     break
             else:
                 return True
         return False
 
-    # 部分匹配表
     def partial_table(self,p):
-        '''partial_table("ABCDABD") -> [0, 0, 0, 0, 1, 2, 0]'''
         prefix = set()
         postfix = set()
         ret = [0]
