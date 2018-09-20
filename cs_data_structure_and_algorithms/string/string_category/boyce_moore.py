@@ -11,12 +11,11 @@ class BoyceMoore():
         self.arr1 = self.arr1[::-1]
         self.arr2 = self.arr2[::-1]
 
-    # BoyceMoore
     def boyce_moore_match(self):
         self.invert()
         m = len(self.arr1)
         n = len(self.arr2)
-        cur = 0  # 起始指针cur
+        cur = 0
         table = self.partial_table(self.arr2)
         while cur <= m - n:
             for i in range(n):
@@ -27,11 +26,8 @@ class BoyceMoore():
                 return True
         return False
 
-    # 部分匹配表
     def partial_table(self,p):
-        '''partial_table("ABCDABD") -> [0, 0, 0, 0, 1, 2, 0]'''
         prefix = set()
-        postfix = set()
         ret = [0]
         for i in range(1, len(p)):
             prefix.add(p[:i])
