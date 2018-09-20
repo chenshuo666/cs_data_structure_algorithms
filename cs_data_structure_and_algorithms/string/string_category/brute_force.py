@@ -12,7 +12,7 @@ class BruteForce():
         m=len(self.array1)
         n= len(self.array2)
         for i in range(m - n + 1):
-            index = i  # index指向下一个待比较的字符
+            index = i
             for j in range(len(self.array2)):
                 if self.array1[index] == self.array2[j]:
                     index += 1
