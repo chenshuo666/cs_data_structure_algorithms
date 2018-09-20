@@ -13,7 +13,6 @@ class TreeSort:
     def __init__(self):
         self.root = None
 
-    # 递归搜索
     def search(self, root, parent, data):
         if root is None:
             return False, root, parent
@@ -24,7 +23,6 @@ class TreeSort:
         else:
             return self.search(root.right, root, data)
 
-    # 插入
     def insert(self, data):
         node = Node(data)
         if self.root is None:
@@ -37,7 +35,7 @@ class TreeSort:
             else:
                 p.left = node
 
-    def sort(self, root):  # 中序序遍历
+    def sort(self, root):
         if root is None:
             return []
         result = [root.data]
@@ -47,8 +45,8 @@ class TreeSort:
 
 if __name__ == '__main__':
 
-    t = TreeSort()  # 创建二叉查找树
+    t = TreeSort()
     mm=[23,34,2,1,235,5,765,86,59,760,235,456,123,32346,347]
     for i in range(len(mm)):
         t.insert(mm[i])
-    print(t.sort(t.root))  # 中序遍历
+    print(t.sort(t.root))
